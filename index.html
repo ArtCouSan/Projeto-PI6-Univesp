@@ -3,9 +3,70 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <title>Document</title>
   </head>
   <body>
-      
+    <style>
+      html {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        min-height: 100vh;
+      }
+      .section {
+        height: 100vh;
+      }
+      .box-inputs {
+        height: 20%;
+      }
+      .box-input {
+      }
+      .box-point {
+      }
+      .point {
+        width: 20px;
+        height: 20px;
+        border-radius: 100px;
+        background-color: orangered;
+        margin-left: 0%;
+        /* animation: 3s ease-in 1s infinite reverse both running slidein; */
+      }
+      @keyframes slidein {
+        from {
+          margin-left: 100%;
+        }
+
+        to {
+          margin-left: 0%;
+        }
+      }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $("#1").animate({marginLeft: '100%'}, 1000);
+      });
+    </script>
+    <section class="section">
+      <div class="box-inputs">
+        <div class="box-input">
+          <label>Massa:</label>
+          <input placeholder="Massa" type="text" />
+        </div>
+        <div class="box-input">
+          <label>Velocidade:</label>
+          <input placeholder="Velocidade" type="text" />
+        </div>
+      </div>
+      <div>
+        <div class="box-point">
+          <div class="point" id="1"></div>
+          <div class="point"></div>
+        </div>
+      </div>
+    </section>
   </body>
 </html>
