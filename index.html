@@ -3,8 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Overpass:wght@100;200;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <title>Document</title>
   </head>
   <body>
@@ -16,14 +40,28 @@
       }
       body {
         min-height: 100vh;
+        font-family: "Overpass", sans-serif;
+        font-weight: 400;
       }
       .section {
         height: 100vh;
+        margin: 10px;
       }
       .box-inputs {
-        height: 20%;
+        border: 2px solid orangered;
+        border-radius: 15px;
+        height: 25%;
+        padding: 5px;
+        margin: 5px;
       }
       .box-input {
+      }
+      .input {
+        border-radius: 100px;
+        padding: 5px;
+        outline: none;
+        height: 20px;
+        font-size: 12px;
       }
       .box-point {
       }
@@ -33,7 +71,34 @@
         border-radius: 100px;
         background-color: orangered;
         margin-left: 0%;
+        margin-bottom: 5px;
         /* animation: 3s ease-in 1s infinite reverse both running slidein; */
+      }
+      .box-buttons {
+        position: relative;
+        height: 70px;
+        width: 100%;
+        margin-top: 25px;
+      }
+      .button {
+        position: absolute;
+        left: 50%;
+      }
+      .list {
+        display: inline-flex;
+        flex-direction: row;
+        align-content: space-between;
+        list-style: none;
+        width: 100%;
+        padding: 0px;
+      }
+      li {
+        width: 20px;
+        width: 10%;
+        border-bottom: 2px solid black;
+        border-right: 2px solid black;
+        border-left: 2px solid black;
+        height: 25px;
       }
       @keyframes slidein {
         from {
@@ -47,46 +112,77 @@
     </style>
     <script>
       $("document").ready(function () {
-
         $("#submit").click(function () {
-
           const firstPointSize = $("#point-1-size").val();
           const firstPointAccelaration = $("#point-1-acceleration").val();
           const firstPointDistance = $("#point-1-distance").val();
-
-          const firstPointImpactForce = (firstPointSize * firstPointAccelaration * firstPointAccelaration) / (firstPointDistance * 254);
 
           const secondPointSize = $("#point-2-size").val();
           const secondPointAccelaration = $("#point-2-acceleration").val();
           const secondPointDistance = $("#point-2-distance").val();
 
-          const secondPointImpactForce = (secondPointSize * secondPointAccelaration * secondPointAccelaration) / (secondPointDistance * 254);
+          const greaterDistance =
+            firstPointDistance > secondPointDistance
+              ? firstPointDistance
+              : secondPointDistance;
+
+          const distance = greaterDistance / 15;
+
+          const firstPointImpactForce =
+            (firstPointSize * firstPointAccelaration * firstPointAccelaration) /
+            (firstPointDistance * 254);
+
+          const secondPointImpactForce =
+            (secondPointSize *
+              secondPointAccelaration *
+              secondPointAccelaration) /
+            (secondPointDistance * 254);
 
           const firstAnimation = firstPointImpactForce;
           const secondAnimation = secondPointImpactForce;
-          
-          $("#1").animate({ marginLeft: "100%" }, firstAnimation) ;
-          $("#2").animate({ marginLeft: "100%" }, secondAnimation);
-        });
 
+          $("#1").animate({ marginLeft: "95%" }, firstAnimation);
+          $("#2").animate({ marginLeft: "95%" }, secondAnimation);
+
+          setInterval(function () {
+            $("#1").animate({ marginLeft: "0%" }, firstAnimation);
+            $("#2").animate({ marginLeft: "0%" }, secondAnimation);
+          }, 1000);
+        });
       });
     </script>
     <section class="section">
+      <h1>Força de impacto</h1>
       <div class="box-inputs">
         <div class="box-title">
           <label>Ponto 1:</label>
         </div>
         <div class="box-input">
           <label>Massa (Kg)</label>
-          <input id="point-1-size" placeholder="Massa" type="text" />
+          <input
+            class="input"
+            id="point-1-size"
+            placeholder="Massa"
+            type="text"
+          />
         </div>
         <div class="box-input">
           <label>Aceleração (km/h)</label>
-          <input id="point-1-acceleration" placeholder="Velocidade" type="text" />
+          <input
+            id="point-1-acceleration"
+            placeholder="Aceleração"
+            type="text"
+            class="input"
+          />
         </div>
         <div class="box-input">
           <label>Distância de parada (m)</label>
-          <input id="point-1-distance" placeholder="Distância de parada" type="text" />
+          <input
+            id="point-1-distance"
+            placeholder="Distância de parada"
+            type="text"
+            class="input"
+          />
         </div>
       </div>
       <div class="box-inputs">
@@ -95,26 +191,57 @@
         </div>
         <div class="box-input">
           <label>Massa (Kg)</label>
-          <input id="point-2-size" placeholder="Massa" type="text" />
+          <input
+            id="point-2-size"
+            placeholder="Massa"
+            type="text"
+            class="input"
+          />
         </div>
         <div class="box-input">
           <label>Aceleração (km/h)</label>
-          <input id="point-2-acceleration" placeholder="Velocidade" type="text" />
+          <input
+            id="point-2-acceleration"
+            placeholder="Aceleração"
+            type="text"
+            class="input"
+          />
         </div>
         <div class="box-input">
           <label>Distância de parada (m)</label>
-          <input id="point-2-distance" placeholder="Distância de parada" type="text" />
+          <input
+            id="point-2-distance"
+            placeholder="Distância de parada"
+            type="text"
+            class="input"
+          />
         </div>
       </div>
       <div class="box-buttons">
         <div class="box-button">
-          <button id="submit">Avaliar</button>
+          <button type="button" class="button btn btn-primary" id="submit">
+            Avaliar
+          </button>
         </div>
       </div>
       <div>
         <div class="box-point">
           <div class="point" id="1"></div>
           <div class="point" id="2"></div>
+        </div>
+        <div class="box-scale">
+          <ul class="list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
         </div>
       </div>
     </section>
