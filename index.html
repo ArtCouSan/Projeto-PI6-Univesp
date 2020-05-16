@@ -46,25 +46,75 @@
       }
     </style>
     <script>
-      $(document).ready(function () {
-        $("#1").animate({marginLeft: '100%'}, 1000);
+      $("document").ready(function () {
+
+        $("#submit").click(function () {
+
+          const firstPointSize = $("#point-1-size").val();
+          const firstPointAccelaration = $("#point-1-acceleration").val();
+          const firstPointDistance = $("#point-1-distance").val();
+
+          const firstPointImpactForce = (firstPointSize * firstPointAccelaration * firstPointAccelaration) / (firstPointDistance * 254);
+
+          const secondPointSize = $("#point-2-size").val();
+          const secondPointAccelaration = $("#point-2-acceleration").val();
+          const secondPointDistance = $("#point-2-distance").val();
+
+          const secondPointImpactForce = (secondPointSize * secondPointAccelaration * secondPointAccelaration) / (secondPointDistance * 254);
+
+          const firstAnimation = firstPointImpactForce;
+          const secondAnimation = secondPointImpactForce;
+          
+          $("#1").animate({ marginLeft: "100%" }, firstAnimation) ;
+          $("#2").animate({ marginLeft: "100%" }, secondAnimation);
+        });
+
       });
     </script>
     <section class="section">
       <div class="box-inputs">
-        <div class="box-input">
-          <label>Massa:</label>
-          <input placeholder="Massa" type="text" />
+        <div class="box-title">
+          <label>Ponto 1:</label>
         </div>
         <div class="box-input">
-          <label>Velocidade:</label>
-          <input placeholder="Velocidade" type="text" />
+          <label>Massa (Kg)</label>
+          <input id="point-1-size" placeholder="Massa" type="text" />
+        </div>
+        <div class="box-input">
+          <label>Aceleração (km/h)</label>
+          <input id="point-1-acceleration" placeholder="Velocidade" type="text" />
+        </div>
+        <div class="box-input">
+          <label>Distância de parada (m)</label>
+          <input id="point-1-distance" placeholder="Distância de parada" type="text" />
+        </div>
+      </div>
+      <div class="box-inputs">
+        <div class="box-title">
+          <label>Ponto 2:</label>
+        </div>
+        <div class="box-input">
+          <label>Massa (Kg)</label>
+          <input id="point-2-size" placeholder="Massa" type="text" />
+        </div>
+        <div class="box-input">
+          <label>Aceleração (km/h)</label>
+          <input id="point-2-acceleration" placeholder="Velocidade" type="text" />
+        </div>
+        <div class="box-input">
+          <label>Distância de parada (m)</label>
+          <input id="point-2-distance" placeholder="Distância de parada" type="text" />
+        </div>
+      </div>
+      <div class="box-buttons">
+        <div class="box-button">
+          <button id="submit">Avaliar</button>
         </div>
       </div>
       <div>
         <div class="box-point">
           <div class="point" id="1"></div>
-          <div class="point"></div>
+          <div class="point" id="2"></div>
         </div>
       </div>
     </section>
