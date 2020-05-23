@@ -54,7 +54,9 @@
         padding: 5px;
         margin: 5px;
       }
-      .box-input {
+      .box-result {
+        position: absolute;
+        right: 110px;
       }
       .input {
         border-radius: 100px;
@@ -63,7 +65,9 @@
         height: 20px;
         font-size: 12px;
       }
-      .box-point {
+      .box-title {
+        position: relative;
+        display: flex;
       }
       .point {
         width: 20px;
@@ -83,6 +87,12 @@
       .button {
         position: absolute;
         left: 50%;
+        background-color: orangered;
+        border-color: orangered;
+      }
+      .btn-primary:hover {
+        background-color: orangered !important;
+        border-color: orangered !important;
       }
       .list {
         display: inline-flex;
@@ -100,19 +110,13 @@
         border-left: 2px solid black;
         height: 25px;
       }
-      @keyframes slidein {
-        from {
-          margin-left: 100%;
-        }
-
-        to {
-          margin-left: 0%;
-        }
+      .option {
+        padding-left: 5%;
       }
     </style>
     <script>
       $("document").ready(function () {
-        $("#submit").click(function () {
+        $("#submit").on("click", function () {
           const firstPointSize = $("#point-1-size").val();
           const firstPointAccelaration = $("#point-1-acceleration").val();
           const firstPointDistance = $("#point-1-distance").val();
@@ -126,7 +130,7 @@
               ? firstPointDistance
               : secondPointDistance;
 
-          const distance = greaterDistance / 15;
+          const distance = greaterDistance / 10;
 
           const firstPointImpactForce =
             (firstPointSize * firstPointAccelaration * firstPointAccelaration) /
@@ -138,16 +142,43 @@
               secondPointAccelaration) /
             (secondPointDistance * 254);
 
-          const firstAnimation = firstPointImpactForce;
-          const secondAnimation = secondPointImpactForce;
+          $("#option-1").text(Number(distance * 1).toFixed(2) + " m");
+          $("#option-2").text(Number(distance * 2).toFixed(2) + " m");
+          $("#option-3").text(Number(distance * 3).toFixed(2) + " m");
+          $("#option-4").text(Number(distance * 4).toFixed(2) + " m");
+          $("#option-5").text(Number(distance * 5).toFixed(2) + " m");
+          $("#option-6").text(Number(distance * 6).toFixed(2) + " m");
+          $("#option-7").text(Number(distance * 7).toFixed(2) + " m");
+          $("#option-8").text(Number(distance * 8).toFixed(2) + " m");
+          $("#option-9").text(Number(distance * 9).toFixed(2) + " m");
+          $("#option-10").text(Number(distance * 10).toFixed(2) + " m");
 
-          $("#1").animate({ marginLeft: "95%" }, firstAnimation);
-          $("#2").animate({ marginLeft: "95%" }, secondAnimation);
+          const distanceFirstRule =
+            ((firstPointDistance * 9.9) / greaterDistance) * 10;
+
+          const distanceSecondRule =
+            ((secondPointDistance * 9.9) / greaterDistance) * 10;
+
+          $("#1")
+            .clearQueue()
+            .animate(
+              { marginLeft: distanceFirstRule.toString().concat("%") },
+              10000
+            );
+          $("#2")
+            .clearQueue()
+            .animate(
+              { marginLeft: distanceSecondRule.toString().concat("%") },
+              10000
+            );
 
           setInterval(function () {
-            $("#1").animate({ marginLeft: "0%" }, firstAnimation);
-            $("#2").animate({ marginLeft: "0%" }, secondAnimation);
-          }, 1000);
+            $("#1").animate({ marginLeft: "1%" }, 5000);
+            $("#2").animate({ marginLeft: "1%" }, 5000);
+            $("#result-1").text(Number(firstPointImpactForce).toFixed(0));
+            $("#result-2").text(Number(secondPointImpactForce).toFixed(0));
+          }, 10000);
+          
         });
       });
     </script>
@@ -156,6 +187,9 @@
       <div class="box-inputs">
         <div class="box-title">
           <label>Ponto 1:</label>
+          <div class="box-result">
+            <h5>Resultado em newtons: <span id="result-1">0</span></h5>
+          </div>
         </div>
         <div class="box-input">
           <label>Massa (Kg)</label>
@@ -185,9 +219,13 @@
           />
         </div>
       </div>
+
       <div class="box-inputs">
         <div class="box-title">
           <label>Ponto 2:</label>
+          <div class="box-result --2">
+            <h5>Resultado em newtons: <span id="result-2">0</span></h5>
+          </div>
         </div>
         <div class="box-input">
           <label>Massa (Kg)</label>
@@ -217,6 +255,7 @@
           />
         </div>
       </div>
+
       <div class="box-buttons">
         <div class="box-button">
           <button type="button" class="button btn btn-primary" id="submit">
@@ -231,16 +270,16 @@
         </div>
         <div class="box-scale">
           <ul class="list">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li id="option-1" class="option"></li>
+            <li id="option-2" class="option"></li>
+            <li id="option-3" class="option"></li>
+            <li id="option-4" class="option"></li>
+            <li id="option-5" class="option"></li>
+            <li id="option-6" class="option"></li>
+            <li id="option-7" class="option"></li>
+            <li id="option-8" class="option"></li>
+            <li id="option-9" class="option"></li>
+            <li id="option-10" class="option"></li>
           </ul>
         </div>
       </div>
