@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Overpass:wght@100;200;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      html {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        min-height: 100vh;
+        font-family: "Overpass", sans-serif;
+        font-weight: 400;
+      }
+      .section {
+        height: 100vh;
+        margin: 10px;
+      }
+      .box-inputs {
+        border: 2px solid orangered;
+        border-radius: 15px;
+        height: 25%;
+        padding: 5px;
+        margin: 5px;
+      }
+      .box-result {
+        position: absolute;
+        right: 110px;
+      }
+      .input {
+        border-radius: 100px;
+        padding: 5px;
+        outline: none;
+        height: 20px;
+        font-size: 12px;
+      }
+      .box-title {
+        position: relative;
+        display: flex;
+      }
+      .point {
+        width: 20px;
+        height: 20px;
+        border-radius: 100px;
+        background-color: orangered;
+        margin-left: 0%;
+        margin-bottom: 5px;
+        /* animation: 3s ease-in 1s infinite reverse both running slidein; */
+      }
+      .box-buttons {
+        position: relative;
+        height: 70px;
+        width: 100%;
+        margin-top: 25px;
+      }
+      .button {
+        position: absolute;
+        left: 50%;
+        background-color: orangered;
+        border-color: orangered;
+      }
+      .btn-primary:hover {
+        background-color: orangered !important;
+        border-color: orangered !important;
+      }
+      .list {
+        display: inline-flex;
+        flex-direction: row;
+        align-content: space-between;
+        list-style: none;
+        width: 100%;
+        padding: 0px;
+      }
+      li {
+        width: 20px;
+        width: 10%;
+        border-bottom: 2px solid black;
+        border-right: 2px solid black;
+        border-left: 2px solid black;
+        height: 25px;
+      }
+      .option {
+        padding-left: 3%;
+      }
+    </style>
+    <script>
+      $("document").ready(function () {
+        $("#submit").on("click", function () {
+          const firstPointDistance = $("#point-distance").val();
+          const firstPointAccelaration = $("#point-km").val();
+
+          const distance = firstPointDistance / 10;
+
+          const firstPointRouteMinutes = (((firstPointDistance / firstPointAccelaration) * 60));
+          const firstPointRouteHours = (firstPointDistance / firstPointAccelaration) ;
+
+          $("#option-1").text(new Intl.NumberFormat('de-DE', {  style: 'decimal' }).format(distance * 1) + " km");
+          $("#option-2").text(new Intl.NumberFormat('de-DE', {  style: 'decimal' }).format(distance * 2) + " km");
+          $("#option-3").text(new Intl.NumberFormat('de-DE', {  style: 'decimal' }).format(distance * 3) + " km");
+          $("#option-4").text(new Intl.NumberFormat('de-DE', {  style: 'decimal' }).format(distance * 4)+ " km");
+          $("#option-5").text(new Intl.NumberFormat('de-DE', {  style: 'decimal' }).format(distance * 5) + " km");
+          $("#option-6").text(new Intl.NumberFormat('de-DE', {  style: 'decimal' }).format(distance * 6) + " km");
+          $("#option-7").text(new Intl.NumberFormat('de-DE', {  style: 'decimal' }).format(distance * 7) + " km");
+          $("#option-8").text(new Intl.NumberFormat('de-DE', {  style: 'decimal' }).format(distance * 8)+ " km");
+          $("#option-9").text(new Intl.NumberFormat('de-DE', {  style: 'decimal' }).format(distance * 9) + " km");
+          $("#option-10").text(new Intl.NumberFormat('de-DE', {  style: 'decimal' }).format(distance * 10) + " km");
+
+          const distanceFirstRule =
+            ((firstPointDistance * 9.9) / firstPointDistance) * 10;
+
+          $("#1")
+            .clearQueue()
+            .animate(
+              { marginLeft: distanceFirstRule.toString().concat("%") },
+              10000
+            );
+
+          setInterval(function () {
+            $("#1").animate({ marginLeft: "1%" }, 5000);
+            $("#result-1").text(new Intl.NumberFormat('de-DE', {  style: 'decimal' }).format(firstPointRouteMinutes));
+            $("#result-2").text(new Intl.NumberFormat('de-DE', {  style: 'decimal' }).format(firstPointRouteHours));
+          }, 10000);
+
+        });
+      });
+    </script>
+    <section class="section">
+      <h1>Tempo de percurso</h1>
+      <div class="box-inputs">
+        <div class="box-title">
+          <div class="box-result">
+            <h5>Tempo de chegada em minutos: <span id="result-1">0</span></h5>
+            <h5>Tempo de chegada em horas: <span id="result-2">0</span></h5>
+          </div>
+        </div>
+        <div class="box-input">
+          <label>Km/h: </label>
+          <input
+            class="input"
+            id="point-km"
+            placeholder="Km/h"
+            type="text"
+          />
+        </div>
+        <div class="box-input">
+          <label>Km: </label>
+          <input
+            id="point-distance"
+            placeholder="Distância"
+            type="text"
+            class="input"
+          />
+        </div>
+      </div>
+
+      <div class="box-buttons">
+        <div class="box-button">
+          <button type="button" class="button btn btn-primary" id="submit">
+            Avaliar
+          </button>
+        </div>
+      </div>
+      <div>
+        <div class="box-point">
+          <div class="point" id="1"></div>
+        </div>
+        <div class="box-scale">
+          <ul class="list">
+            <li id="option-1" class="option"></li>
+            <li id="option-2" class="option"></li>
+            <li id="option-3" class="option"></li>
+            <li id="option-4" class="option"></li>
+            <li id="option-5" class="option"></li>
+            <li id="option-6" class="option"></li>
+            <li id="option-7" class="option"></li>
+            <li id="option-8" class="option"></li>
+            <li id="option-9" class="option"></li>
+            <li id="option-10" class="option"></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
